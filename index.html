@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi futura maestra favorita</title>
+    <style>
+        :root {
+            --color-amor: #ff4d6d;
+            --color-fondo: #fff0f3;
+            --color-texto: #590d22;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: var(--color-fondo);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--color-texto);
+        }
+
+        /* --- SISTEMA DE PÁGINAS --- */
+        .seccion {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s;
+            z-index: 10;
+        }
+
+        .oculta {
+            transform: translateY(100vh);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* --- PÉTALOS --- */
+        #petalos-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .petalo {
+            position: absolute;
+            background-color: #ffb3c1;
+            border-radius: 150% 0 150% 0;
+            opacity: 0.6;
+            animation: caer 6s linear infinite;
+        }
+
+        @keyframes caer {
+            0% { transform: translateY(-10vh) rotate(0deg); }
+            100% { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        /* --- PÁGINA 1: EL CORAZÓN INICIAL --- */
+        .corazon-inicio {
+            background-color: var(--color-amor);
+            width: 150px;
+            height: 150px;
+            position: relative;
+            transform: rotate(-45deg);
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: latido 1.2s infinite;
+        }
+
+        .corazon-inicio::before, .corazon-inicio::after {
+            content: "";
+            background-color: var(--color-amor);
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            position: absolute;
+        }
+
+        .corazon-inicio::before { top: -75px; left: 0; }
+        .corazon-inicio::after { left: 75px; top: 0; }
+
+        .texto-inicio {
+            transform: rotate(45deg);
+            color: white;
+            font-weight: bold;
+            z-index: 2;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        @keyframes latido {
+            0% { transform: rotate(-45deg) scale(1); }
+            50% { transform: rotate(-45deg) scale(1.1); }
+            100% { transform: rotate(-45deg) scale(1); }
+        }
+
+        /* --- PÁGINA 2: COLLAGE --- */
+        .galeria {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            width: 90%;
+            max-width: 800px;
+            margin-bottom: 30px;
+        }
+
+        .foto-frame {
+            background: white;
+            padding: 8px;
+            border-radius: 5px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .foto-frame img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 3px;
+        }
+
+        @media (min-width: 768px) {
+            .foto-frame img { height: 220px; }
+        }
+
+        .btn-siguiente {
+            padding: 15px 35px;
+            background-color: var(--color-amor);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+            transition: 0.3s;
+        }
+
+        .btn-siguiente:hover { transform: scale(1.05); }
+
+        /* --- PÁGINA 3: CARTA FINAL --- */
+        .carta-final {
+            background: white;
+            padding: 40px;
+            width: 85%;
+            max-width: 450px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            text-align: center;
+            position: relative;
+        }
+
+        h2 { color: var(--color-amor); margin-top: 0; }
+        p { line-height: 1.7; font-size: 1.1rem; }
+
+        .firma-contenedor {
+            position: relative;
+            display: inline-block;
+            margin-top: 25px;
+            padding: 20px;
+        }
+
+        .corazon-fondo-firma {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(255, 77, 109, 0.15);
+            font-size: 100px;
+            z-index: 0;
+        }
+
+        .texto-firma {
+            position: relative;
+            z-index: 1;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--color-texto);
+        }
+
+        .corazon-final {
+            color: var(--color-amor);
+            font-size: 2rem;
+            display: block;
+            margin-top: 10px;
+            animation: latido-simple 1.5s infinite;
+        }
+
+        @keyframes latido-simple {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        @media (max-width: 600px) {
+            .galeria { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .foto-frame img { height: 120px; }
+            .carta-final { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="petalos-container"></div>
+
+    <section id="p1" class="seccion">
+        <div class="corazon-inicio" onclick="irA('p2')">
+            <div class="texto-inicio">Haz clic<br>mi amor</div>
+        </div>
+    </section>
+
+    <section id="p2" class="seccion oculta">
+        <h2 style="margin-bottom: 20px;">Nuestros Momentos</h2>
+        <div class="galeria">
+            <div class="foto-frame" style="transform: rotate(-3deg);"><img src="https://i.ibb.co/jtKjcDm/image.jpg"></div>
+            <div class="foto-frame" style="transform: rotate(4deg);"><img src="https://i.ibb.co/HL3nrSwY/image.jpg"></div>
+            <div class="foto-frame" style="transform: rotate(-2deg);"><img src="https://i.ibb.co/Sw08zDxH/image.jpg"></div>
+            <div class="foto-frame" style="transform: rotate(5deg);"><img src="https://i.ibb.co/4wT6QwLj/image.jpg"></div>
+            <div class="foto-frame" style="transform: rotate(0deg);"><img src="https://i.ibb.co/m54bTL4J/image.jpg"></div>
+            <div class="foto-frame" style="transform: rotate(0deg);"><img src="https://i.ibb.co/h1txKKnD/image.jpg"></div>
+        </div>
+        <button class="btn-siguiente" onclick="irA('p3')">Hay algo más para ti...</button>
+    </section>
+
+    <section id="p3" class="seccion oculta">
+        <div class="carta-final">
+            <h2>¡Feliz Día del Maestro!</h2>
+            <p>A la futura docente más increíble y dedicada...</p>
+            <p>Verte luchar por tus sueños y estar tan cerca de tu graduación me llena de orgullo. No solo vas a enseñar materias, vas a inspirar corazones, tal como lo haces conmigo cada día.</p>
+            <p>Gracias por ser mi maestra en el amor y por el hermoso futuro que estamos construyendo.</p>
+            
+            <div class="firma-contenedor">
+                <div class="corazon-fondo-firma">❤</div>
+                <div class="texto-firma">Con amor, tu futuro esposo</div>
+            </div>
+
+            <span class="corazon-final">❤</span>
+        </div>
+    </section>
+
+    <script>
+        function irA(idProxima) {
+            document.querySelectorAll('.seccion').forEach(s => {
+                s.classList.add('oculta');
+            });
+            const proxima = document.getElementById(idProxima);
+            proxima.classList.remove('oculta');
+        }
+
+        function crearPetalo() {
+            const container = document.getElementById('petalos-container');
+            const petalo = document.createElement('div');
+            petalo.classList.add('petalo');
+            petalo.style.left = Math.random() * 100 + 'vw';
+            petalo.style.top = '-5vh';
+            const size = Math.random() * 12 + 8 + 'px';
+            petalo.style.width = size;
+            petalo.style.height = size;
+            petalo.style.animationDuration = Math.random() * 3 + 4 + 's';
+            container.appendChild(petalo);
+            setTimeout(() => petalo.remove(), 6000);
+        }
+
+        setInterval(crearPetalo, 350);
+    </script>
+</body>
+</html>
